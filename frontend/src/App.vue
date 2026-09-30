@@ -4,7 +4,11 @@ import SessionList from './components/SessionList.vue'
 
 <template>
   <main>
-    <h1>Pencatat Peminjaman Buku</h1>
-    <SessionList />
+    <header>
+      <h1>Pencatatan Peminjaman Buku</h1>
+    </header>
+    <section>
+      <SessionList />
+    </section>
   </main>
 </template>
