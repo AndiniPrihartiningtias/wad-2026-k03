@@ -312,3 +312,138 @@ textarea:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* ===== Layout Global ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #fafafa;
+  color: #222;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;      /* ← ini yang bikin center */
+  padding: 0 1rem;
+}
+
+header h1 {
+  text-align: center;
+  margin: 1rem 0 2rem;
+  font-size: 2rem;
+}
+
+section {
+  display: grid;
+  gap: 2rem;
+}
+
+/* ===== Form ===== */
+.session-form {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  display: grid;
+  gap: 1rem;
+}
+
+.session-form h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.field label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.field input,
+.field select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.session-form button[type="submit"] {
+  padding: 0.7rem 1.2rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.session-form button[type="submit"]:hover {
+  background: #1d4ed8;
+}
+
+.session-form button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Tabel ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #f5f7ff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== Error / state ===== */
+.error { color: #c00; font-size: 0.875rem; }
+.server-error {
+  background: #fee;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+/* ===== Focus (Q2) ===== */
+:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}

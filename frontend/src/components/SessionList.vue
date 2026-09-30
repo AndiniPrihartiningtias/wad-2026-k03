@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { listSessions } from '../api.js'
+import { listSessions } from '../api/session.js'
 import SessionItem from './SessionItem.vue'
 
 const status = ref('loading')   // 'loading' | 'data' | 'empty' | 'error'

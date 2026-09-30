@@ -1,5 +1,5 @@
 <script setup>
-import { deleteSession } from '../api.js'
+import { deleteSession } from '../api/session.js'
 
 const props = defineProps({
   item: {
