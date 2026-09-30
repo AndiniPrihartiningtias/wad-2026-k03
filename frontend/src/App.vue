@@ -1,7 +1,10 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import SessionList from './components/SessionList.vue'
 </script>
 
 <template>
-  <HelloWorld />
+  <main>
+    <h1>Pencatat Peminjaman Buku</h1>
+    <SessionList />
+  </main>
 </template>
