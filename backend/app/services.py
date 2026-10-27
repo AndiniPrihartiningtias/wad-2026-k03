@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, Query, Response, status
+
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 
 from app.data import sessions
 from app.schemas import SessionCreate, SessionOut
+from app.auth import require_role
 
 router = APIRouter(prefix="/sessions", tags=["Sessions"])
 
@@ -62,8 +64,14 @@ def create_session(session_data: SessionCreate):
     return new_session
 
 
-@router.delete("/{session_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_session(session_id: int):
+@router.delete(
+    "/{session_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+def delete_session(
+    session_id: int,
+    _admin=Depends(require_role("admin")),
+):
     for index, session in enumerate(sessions):
         if session["id"] == session_id:
             sessions.pop(index)
