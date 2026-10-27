@@ -1,9 +1,20 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { listSessions } from '../api/session.js'
+import { listSessions } from '../api.js'
 import SessionItem from './SessionItem.vue'
 
-const status = ref('loading')   // 'loading' | 'data' | 'empty' | 'error'
+const props = defineProps({
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  token: {
+    type: String,
+    default: '',
+  },
+})
+
+const status = ref('loading')
 const items = ref([])
 const errorMsg = ref('')
 let controller = null
@@ -17,16 +28,19 @@ async function load() {
 
   try {
     const data = await listSessions(
-      { page: 1, page_size: 50 },
-      controller.signal
+      { page: 1, limit: 50 },
+      controller.signal,
     )
 
-    items.value = data.items ?? data
+    items.value = Array.isArray(data)
+      ? data
+      : data.items ?? []
+
     status.value = items.value.length ? 'data' : 'empty'
   } catch (err) {
     if (err.name === 'AbortError') return
 
-    errorMsg.value = err.message
+    errorMsg.value = err.message || 'Gagal memuat data.'
     status.value = 'error'
   }
 }
@@ -37,7 +51,12 @@ onUnmounted(() => {
   controller?.abort()
 })
 
-defineExpose({ status, items, errorMsg, load })
+defineExpose({
+  status,
+  items,
+  errorMsg,
+  load,
+})
 </script>
 
 <template>
@@ -46,15 +65,15 @@ defineExpose({ status, items, errorMsg, load })
       Memuat data...
     </p>
 
-    <p v-else-if="status === 'error'">
-      {{ errorMsg }}
+    <div v-else-if="status === 'error'">
+      <p role="alert">{{ errorMsg }}</p>
       <button type="button" @click="load">
         Coba lagi
       </button>
-    </p>
+    </div>
 
     <p v-else-if="status === 'empty'">
-      Belum ada sesi peminjaman.
+      Belum ada data peminjaman.
     </p>
 
     <table v-else>
@@ -62,6 +81,7 @@ defineExpose({ status, items, errorMsg, load })
         <tr>
           <th scope="col">Judul Buku</th>
           <th scope="col">Nama Peminjam</th>
+          <th scope="col">Status</th>
           <th scope="col">Aksi</th>
         </tr>
       </thead>
@@ -71,6 +91,8 @@ defineExpose({ status, items, errorMsg, load })
           v-for="item in items"
           :key="item.id"
           :item="item"
+          :is-admin="props.isAdmin"
+          :token="props.token"
           @deleted="load"
         />
       </tbody>
