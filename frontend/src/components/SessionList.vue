@@ -92,7 +92,7 @@ defineExpose({
           :key="item.id"
           :item="item"
           :is-admin="props.isAdmin"
-          :token="props.token"
+          :auth-value="props.token"
           @deleted="load"
         />
       </tbody>

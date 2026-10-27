@@ -10,7 +10,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  token: {
+  authValue: {
     type: String,
     default: '',
   },
@@ -24,7 +24,7 @@ async function remove() {
     return
   }
 
-  if (!props.token) {
+  if (!props.authValue) {
     window.alert('Silakan login terlebih dahulu.')
     return
   }
@@ -36,7 +36,7 @@ async function remove() {
   if (!confirmed) return
 
   try {
-    await deleteSession(props.item.id, props.token)
+    await deleteSession(props.item.id, props.authValue)
     emit('deleted')
   } catch (err) {
     window.alert(err.message || 'Gagal menghapus data.')
