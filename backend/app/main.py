@@ -1,13 +1,12 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI                                  
 from fastapi.middleware.cors import CORSMiddleware
 from app.services import router as api_router
 from . import models
+from .auth import router as auth_router, get_current_user, require_role   
 from .database import engine
 
-# Inisialisasi aplikasi FastAPI
 app = FastAPI(title="Sistem Perpustakaan")
 
-# CORS Middleware agar frontend bisa mengakses backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -24,3 +23,14 @@ def health_check():
     return {"status": "ok"}
 
 app.include_router(api_router)
+app.include_router(auth_router)
+
+
+@app.get("/me")
+def read_me(user: models.User = Depends(get_current_user)):
+    return {"id": user.id, "username": user.username, "role": user.role}
+
+
+@app.get("/admin/ping")
+def admin_ping(user: models.User = Depends(require_role("admin"))):
+    return {"message": f"Halo admin {user.username}"}
