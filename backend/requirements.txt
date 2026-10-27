@@ -16,3 +16,4 @@ PyJWT==2.15.1
 SQLAlchemy
 bcrypt
 python-dotenv
+python-multipart
