@@ -115,16 +115,19 @@ function onUserUpdated(user) {
       @updated="onUserUpdated"
     />
 
-    <section>
-      <UserForm v-if="!isLoggedIn" />
-
+        <section v-if="isLoggedIn">
       <SessionForm @created="onCreated" />
-
       <SessionList
         ref="listRef"
         :is-admin="isAdmin"
         :token="token"
       />
+    </section>
+
+    <section v-else>
+      <h2>Silakan Login</h2>
+      <p>Anda harus login untuk mengelola data peminjaman buku.</p>
+      <UserForm />
     </section>
   </main>
 </template>
