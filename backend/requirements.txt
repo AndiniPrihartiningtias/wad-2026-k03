@@ -15,3 +15,4 @@ uvicorn==0.54.0
 PyJWT==2.15.1
 SQLAlchemy
 bcrypt
+python-dotenv
