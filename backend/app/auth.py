@@ -1,6 +1,6 @@
 
 import jwt
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Form, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
@@ -70,6 +70,7 @@ def register(
 @router.post("/login")
 def login(
     form: OAuth2PasswordRequestForm = Depends(),
+    role: str | None = Form(default=None),
     db: Session = Depends(get_db),
 ):
     user = crud_user.get_user_by_username(db, form.username)
@@ -82,6 +83,12 @@ def login(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Username atau password salah",
             headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    if role is not None and role.lower() != user.role.lower():
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Akun ini tidak punya akses sebagai " + role,
         )
 
     token = create_access_token(
