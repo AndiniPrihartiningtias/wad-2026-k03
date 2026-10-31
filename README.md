@@ -12,7 +12,7 @@ Proyek ini adalah kelanjutan dari UTS (Ujian Tengah Semester) yang kini telah di
 *   **Zaen:** Backend Support (Database SQLite & User Models)
 *   **Nacwa:** Frontend State Lead (Login UI, API Interceptor & Router Guard)
 *   **Andini:** Frontend Form (Create Account & Update Form UI)
-*   **A5 (Salsa):** Integrator & Quality Assurance (Testing, Bug Fixing, Video Demo, & Dokumentasi)
+*   **Salsa:** Integrator & Quality Assurance (Testing, Bug Fixing, Video Demo, & Dokumentasi)
 
 ---
 
